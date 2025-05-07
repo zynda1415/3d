@@ -1,0 +1,30 @@
+name: Generate Infinity Tube OBJ
+
+on:
+  push:
+    paths:
+      - 'generate_infinity_tube.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install numpy trimesh
+
+      - name: Generate infinity_tube.obj
+        run: python generate_infinity_tube.py
+
+      - name: Upload OBJ artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: infinity_tube
+          path: infinity_tube.obj
